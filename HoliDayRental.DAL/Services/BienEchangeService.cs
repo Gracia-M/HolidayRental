@@ -77,16 +77,16 @@ namespace HoliDayRental.DAL.Services
             }
         }
 
-        public IEnumerable<BienEchange> GetByCountry()
+        public IEnumerable<BienEchange> GetByCountry(int country_id)
         {
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] JOIN [Pays]";
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] WHERE [Pays] = @pays";
 
-                    SqlParameter p_capacity = new SqlParameter() { ParameterName = "pays", Value = country };
-                    command.Parameters.Add(p_capacity);
+                    SqlParameter p_country = new SqlParameter() { ParameterName = "pays", Value = country_id };
+                    command.Parameters.Add(p_country);
 
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -95,6 +95,10 @@ namespace HoliDayRental.DAL.Services
             }
         }
 
+        public BienEchange GetByOptionsId(int optionsid)
+        {
+            throw new NotImplementedException();
+        }
 
         public int Insert(BienEchange entity)
         {
