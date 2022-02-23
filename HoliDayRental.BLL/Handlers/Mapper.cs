@@ -28,13 +28,14 @@ namespace HoliDayRental.BLL.Handlers
                 entity.DisabledDate,
                 entity.Latitude,
                 entity.Longitude,
+                entity.DateCreation
 
                 );
         }
-        public static D.Bien ToBLL(this B.Bien entity)
+        public static D.BienEchange ToBLL(this B.BienEchange entity)
         {
             if (entity == null) return null;
-            return new D.Bien
+            return new D.BienEchange
             {
                 idBien = entity.idBien,
                 titre = entity.titre,

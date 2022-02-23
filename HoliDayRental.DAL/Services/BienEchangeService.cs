@@ -1,5 +1,6 @@
 ﻿using HoliDayRental.Common.Repositories;
 using HoliDayRental.DAL.Entities;
+using HoliDayRental.DAL.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -27,28 +28,73 @@ namespace HoliDayRental.DAL.Services
 
         public BienEchange Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange]";
+
+                    SqlParameter p_id = new SqlParameter() { ParameterName = "id", Value = id };
+                    command.Parameters.Add(p_id);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read()) return Mapper.ToBien(reader);
+                    return null;
+                }
+            }
         }
 
         public IEnumerable<BienEchange> Get()
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange]";
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) yield return Mapper.ToBien(reader);
+                }
+            }
         }
 
         public IEnumerable<BienEchange> GetByCapacity(int nbrPerson)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] WHERE Capacity([NombrePerson]) = @nrPer";
+
+                    SqlParameter p_capacity = new SqlParameter() { ParameterName = "nrPer", Value = nbrPerson};
+                    command.Parameters.Add(p_capacity);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) yield return Mapper.ToBien(reader);
+                }
+            }
         }
 
-        public IEnumerable<BienEchange> GetByCountry(int country)
+        public IEnumerable<BienEchange> GetByCountry()
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] JOIN [Pays]";
+
+                    SqlParameter p_capacity = new SqlParameter() { ParameterName = "pays", Value = country };
+                    command.Parameters.Add(p_capacity);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) yield return Mapper.ToBien(reader);
+                }
+            }
         }
 
-        public BienEchange GetByCountryId(int countryId)
-        {
-            throw new NotImplementedException();
-        }
 
         public int Insert(BienEchange entity)
         {

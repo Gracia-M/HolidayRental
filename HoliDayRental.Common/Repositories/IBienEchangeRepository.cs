@@ -4,10 +4,10 @@ using System.Text;
 
 namespace HoliDayRental.Common.Repositories
 {
-    public interface IBienEchangeRepository<TBienEchange>: IRepository<TBienEchange, int>, 
-        IGetByCountryRepository<TBienEchange>
+    public interface IBienEchangeRepository<TBienEchange>: IRepository<TBienEchange, int>
     {
-        IEnumerable<TBienEchange> GetByCountry(int country);
         IEnumerable<TBienEchange> GetByCapacity(int nbrPerson);
+
+        IEnumerable<TBienEchange> GetByCountry(int country_id);
     }
 }
