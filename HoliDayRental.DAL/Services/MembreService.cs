@@ -6,5 +6,6 @@ namespace HoliDayRental.DAL.Services
 {
     public class MembreService : ServiceBase 
     {
+
     }
 }

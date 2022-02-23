@@ -25,9 +25,11 @@ namespace HoliDayRental.BLL.Entities
         public DateTime DateCreation { get; set; }
         public int Pays { get; set; }
         public int idMembre { get; set; }
-        public Pays Pays { get; set; }
+        public Pays Country { get; set; }
         public Membre Membre { get; set; }
-        
+
+        public IEnumerable<OptionsBien> Options { get; set; }
+
 
         public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, string city, string street, string number, string zipcode, string picture, bool insurance, bool enable, DateTime disable, string latitude, string longitude, DateTime creation, Pays country, Membre member)
         {
@@ -47,11 +49,17 @@ namespace HoliDayRental.BLL.Entities
             Latitude = latitude;
             Longitude = longitude;
             DateCreation = creation;
+            Country = country;
             if (country == null) throw new ArgumentNullException(nameof(Pays));
-            Pays = country;
+            Pays = country.idPays;
             Membre = member;
             if (member == null) throw new ArgumentNullException(nameof(idMembre));
             idMembre = member.idMembre;
+        }
+
+        internal DAL.Entities.BienEchange ToDAL()
+        {
+            throw new NotImplementedException();
         }
 
         public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, string city, string street, string number, string zipcode, string picture, bool insurance, bool enable, DateTime disable, string latitude, string longitude, DateTime creation, int pays_id, int member_id)
