@@ -95,9 +95,31 @@ namespace HoliDayRental.DAL.Services
             }
         }
 
-        public BienEchange GetByOptionsId(int optionsid)
+        public IEnumerable<BienEchange> GetByOption(int option_id)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public IEnumerable<BienEchange> GetByOptionsBien(int option_id, string choice)
+        {
+            
+        }
+
+        public BienEchange GetByOptionsId(int optionsId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [BienEchange].[idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] JOIN [OptionsBien] ON [BienEchange].[idBien] = [idBien] WHERE [OptionsBien].[idOption] = @id";
+                    SqlParameter p_id = new SqlParameter() { ParameterName = "id", Value = optionsId };
+                    command.Parameters.Add(p_id);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read()) return Mapper.ToBien(reader);
+                    return null;
+                }
+            }
         }
 
         public int Insert(BienEchange entity)

@@ -86,7 +86,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT [idOption], [idBien], [Valeur] FROM [OptionsBien] FROM [OptionsBien] WHERE [idBien]= @bien_id";
+                    command.CommandText = "SELECT [idOption], [idBien], [Valeur] FROM [OptionsBien] FROM [OptionsBien] WHERE [idBien]= @bien";
                   
                     SqlParameter p_bien = new SqlParameter("bien", bien_id);
                     command.Parameters.Add(p_bien);
@@ -104,7 +104,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT [idOption], [idBien], [Valeur] FROM [OptionsBien] FROM [OptionsBien] WHERE [idOption]= @option";
+                    command.CommandText = "SELECT [idOption], [idBien], [Valeur] FROM [OptionsBien] WHERE [idOption]= @option";
                  
                     SqlParameter p_option = new SqlParameter("option", option_id);
                     command.Parameters.Add(p_option);
@@ -123,7 +123,8 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO [OptionsBien]([Valeur]) OUTPUT [inserted].[idOption],[inserted].[idBien]  VALUES ( @valeur)";
+                    command.CommandText = "INSERT INTO [OptionsBien]([Valeur]) OUTPUT [inserted].[idOption] VALUES ( @valeur)";
+                    command.CommandText = "INSERT INTO [OptionsBien]([Valeur]) OUTPUT [inserted].[idBien] VALUES ( @valeur)";
                     SqlParameter p_valeur = new SqlParameter("valeur", entity.Valeur);
 
                     connection.Open();
@@ -131,7 +132,6 @@ namespace HoliDayRental.DAL.Services
                 }
 
             }
-
         }
 
         public void Update(int id, OptionsBien entity)
@@ -140,7 +140,7 @@ namespace HoliDayRental.DAL.Services
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE [OptionsBien] SET [Valeur] = @valeur WHERE [idOption] = @id1, [idBien] = @id2";
+                        command.CommandText = "UPDATE [OptionsBien] SET [Valeur] = @valeur WHERE [idOption] = @id1 OR [idBien] = @id2";
                     
                         SqlParameter p_valeur1 = new SqlParameter("valeur", entity.idOption);
                         SqlParameter p_valeur2 = new SqlParameter("valeur", entity.idBien);
