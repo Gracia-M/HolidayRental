@@ -1,4 +1,5 @@
-﻿using HoliDayRental.Common.Repositories;
+﻿using HoliDayRental.BLL.Entities;
+using HoliDayRental.Common.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;

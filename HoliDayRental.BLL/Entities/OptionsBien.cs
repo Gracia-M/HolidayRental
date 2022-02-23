@@ -8,6 +8,7 @@ namespace HoliDayRental.BLL.Entities
     {
         public int idOption { get; set; }
         public int idBien { get; set; }
+
         public string Valeur { get; set; }
         public BienEchange Bien { get; set; }
         public Options Option { get; set; }

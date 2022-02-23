@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HoliDayRental.Common\HoliDayRental.Common.csproj" />
     <ProjectReference Include="..\HoliDayRental.DAL\HoliDayRental.DAL.csproj" />
   </ItemGroup>
