@@ -11,6 +11,6 @@ namespace HoliDayRental.Common.Repositories
         IEnumerable<TBienEchange> GetByCountry(int country_id);
         IEnumerable<TBienEchange> GetByOptionsBien(int option_id, string choice);
         IEnumerable<TBienEchange> GetByOption(int option_id);
-        void Update(HoliDayRental.DAL.Entities.BienEchange bienEchange);
+       
     }
 }

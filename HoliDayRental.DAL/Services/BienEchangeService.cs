@@ -128,7 +128,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO [BienEchange]([titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation]) OUTPUT [inserted].[idBien] VALUES (@titre, @descr_c, @desr_l, @nrPers @pays, @ville, @rue, @nr, @cp, @foto, @assur, @enable, @disable, @lat, @lon, @idMe, @creation)";
+                    command.CommandText = "INSERT INTO [BienEchange]([titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation]) OUTPUT [inserted].[idBien] VALUES (@titre, @descr_c, @desr_l, @nrPers @pays, @ville, @rue, @nr, @cp, @foto, @assur, @enable, @disable, @lat, @lon, @idMe)";
                     SqlParameter p_titre = new SqlParameter { ParameterName = "titre", Value = entity.titre };
                     SqlParameter p_descr_te = new SqlParameter { ParameterName = "descr_c", Value = entity.DescCourte };
                     SqlParameter p_desr_ue = new SqlParameter { ParameterName = "descr_l", Value = entity.DescLong };
@@ -145,9 +145,7 @@ namespace HoliDayRental.DAL.Services
                     SqlParameter p_lat= new SqlParameter { ParameterName = "lat", Value = entity.Latitude };
                     SqlParameter p_lon = new SqlParameter { ParameterName = "lon", Value = entity.Longitude};
                     SqlParameter p_idMe = new SqlParameter { ParameterName = "lat", Value = entity.idMembre};
-                    SqlParameter p_creation = new SqlParameter { ParameterName = "creation", Value = entity.DateCreation };
-
-
+                   
 
                     command.Parameters.Add(p_titre);
                     command.Parameters.Add(p_descr_te);
@@ -165,8 +163,6 @@ namespace HoliDayRental.DAL.Services
                     command.Parameters.Add(p_lat);
                     command.Parameters.Add(p_lon);
                     command.Parameters.Add(p_idMe);
-                    command.Parameters.Add(p_creation);
-
 
                     connection.Open();
                     return (int)command.ExecuteScalar();
@@ -196,8 +192,8 @@ namespace HoliDayRental.DAL.Services
                     SqlParameter p_disable = new SqlParameter { ParameterName = "disable", Value = entity.DisabledDate };
                     SqlParameter p_lat = new SqlParameter { ParameterName = "lat", Value = entity.Latitude };
                     SqlParameter p_lon = new SqlParameter { ParameterName = "lon", Value = entity.Longitude };
-                    SqlParameter p_idMe = new SqlParameter { ParameterName = "lat", Value = entity.idMembre };
-                    SqlParameter p_creation = new SqlParameter { ParameterName = "creation", Value = entity.DateCreation };
+                    SqlParameter p_idMe = new SqlParameter { ParameterName = "idMe", Value = entity.idMembre };
+
                     SqlParameter p_id = new SqlParameter() { ParameterName = "id", Value = id };
 
 
@@ -218,7 +214,6 @@ namespace HoliDayRental.DAL.Services
                     command.Parameters.Add(p_lat);
                     command.Parameters.Add(p_lon);
                     command.Parameters.Add(p_idMe);
-                    command.Parameters.Add(p_creation);
                     command.Parameters.Add(p_id);
 
 

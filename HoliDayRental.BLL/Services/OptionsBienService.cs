@@ -1,7 +1,9 @@
 ﻿using HoliDayRental.BLL.Entities;
+using HoliDayRental.BLL.Handlers;
 using HoliDayRental.Common.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HoliDayRental.BLL.Services
@@ -38,7 +40,10 @@ namespace HoliDayRental.BLL.Services
 
         public OptionsBien Get(int id)
         {
-            throw new NotImplementedException();
+            OptionsBien result = _optionBienRepository.Get(id).ToBLL();
+            result.Bienchange = _cinemaRepository.Get(result.Cinema_Id).ToBLL();        
+            result.Film = _filmRepository.Get(result.Film_Id).ToBLL();
+            return result;
         }
 
         public IEnumerable<OptionsBien> Get()
@@ -53,17 +58,23 @@ namespace HoliDayRental.BLL.Services
 
         public IEnumerable<OptionsBien> GetByOptionId(int option_id)
         {
-            throw new NotImplementedException();
+            return _optionBienRepository.GetByOptionId(option_id).Select(opt => {
+                OptionsBien result = opt.ToBLL();
+                result.BienEchange = _bienRepository.Get(result.idBien).ToBLL();
+                result.Options = _optionRepository.Get(result.idOption).ToBLL();
+                return result;
+            });
+
         }
 
         public int Insert(OptionsBien entity)
         {
-            throw new NotImplementedException();
+            return _optionBienRepository.Insert(entity.ToDAL());
         }
 
         public void Update(int id, OptionsBien entity)
         {
-            throw new NotImplementedException();
+            _optionBienRepository.Update(id, entity.ToDAL());
         }
     }
 
