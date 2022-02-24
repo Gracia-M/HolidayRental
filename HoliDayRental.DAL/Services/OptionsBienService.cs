@@ -27,7 +27,7 @@ namespace HoliDayRental.DAL.Services
             }
         }
 
-        public IEnumerable<OptionsBien> Get(string value)
+        public IEnumerable<OptionsBien> GetByValue(int value)
         {
             using (SqlConnection connection = new SqlConnection(_connString))
             {

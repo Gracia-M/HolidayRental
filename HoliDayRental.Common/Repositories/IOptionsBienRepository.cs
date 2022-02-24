@@ -6,7 +6,7 @@ namespace HoliDayRental.Common.Repositories
 {
     public interface IOptionsBienRepository<TOptionsBien> : IRepository<TOptionsBien, int>
     {
-        IEnumerable<TOptionsBien> Get(string value);
+        IEnumerable<TOptionsBien> GetByValue(int value);
         IEnumerable<TOptionsBien> GetByBienId(int bien_id);
         IEnumerable<TOptionsBien> GetByOptionId(int option_id);
     }
