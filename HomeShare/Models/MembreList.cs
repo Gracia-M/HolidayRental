@@ -24,11 +24,11 @@ namespace HoliDayRental.Models
         public string Email { get; set; }
 
         [ScaffoldColumn(false)]
-        public int idPays { get; set; }
-        public Pays Pays { get; set; }
+        public int Pays { get; set; }
+        public PaysDetails ListePays { get; set; }
 
         [DisplayName("Pays")]
-        public string NomPays { get { return this.Pays.Libelle; } }
+        public string NomPays { get { return this.ListePays.Libelle; } }
 
         [DisplayName("Téléphone")]
         public string Telephone { get; set; }

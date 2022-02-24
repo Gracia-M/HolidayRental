@@ -26,9 +26,9 @@ namespace HoliDayRental.Models
 
         [ScaffoldColumn(false)]
         [Required]
-        public int idPays { get; set; }
+        public int Pays { get; set; }
         [DisplayName("Pays")]
-        public IEnumerable<Pays> PaysList { get; set; }
+        public IEnumerable<PaysDetails> ListePays { get; set; }
 
         [Required]
         [DisplayName("Téléphone")]

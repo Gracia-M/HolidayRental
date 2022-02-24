@@ -47,10 +47,10 @@ namespace HoliDayRental.Handlers
             };
         }
 
-        public static Pays ToDetails(this Pays entity)
+        public static PaysDetails ToDetails(this Pays entity)
         {
             if (entity == null) return null;
-            return new Pays
+            return new PaysDetails
             {
                 idPays = entity.idPays,
                 Libelle = entity.Libelle

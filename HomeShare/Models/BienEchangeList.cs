@@ -16,7 +16,7 @@ namespace HoliDayRental.Models
         [DisplayName("Titre")]
         public string titre { get; set; }
 
-        [DisplayName("Resumé")]
+        [DisplayName("Description")]
         public string DescCourte { get; set; }
 
         [DisplayName("Capacité")]
@@ -28,11 +28,11 @@ namespace HoliDayRental.Models
 
 
         [ScaffoldColumn(false)]
-        public int idPays { get; set; }
-        public Pays Pays { get; set; }
+        public int Pays { get; set; }
+        public  PaysDetails ListePays { get; set; }
 
         [DisplayName("Pays")]
-        public string NomPays { get { return this.Pays.Libelle; } }
+        public string NomPays { get { return this.ListePays.Libelle; } }
 
 
     }

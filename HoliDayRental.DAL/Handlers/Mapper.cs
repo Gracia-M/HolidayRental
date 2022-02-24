@@ -1,8 +1,7 @@
 ﻿using HoliDayRental.DAL.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+
 
 namespace HoliDayRental.DAL.Handlers
 {

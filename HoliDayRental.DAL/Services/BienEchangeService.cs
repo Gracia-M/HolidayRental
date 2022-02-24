@@ -97,12 +97,39 @@ namespace HoliDayRental.DAL.Services
 
         public IEnumerable<BienEchange> GetByOption(int option_id)
         {
-            
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] JOIN [OptionsBien] ON [BienEchange].[idBien] = [idBien] WHERE [OptionsBien].[idOption] = @option";
+
+                    SqlParameter p_country = new SqlParameter() { ParameterName = "pays", Value = option_id };
+                    command.Parameters.Add(p_country);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) yield return Mapper.ToBien(reader);
+                }
+            }
         }
 
         public IEnumerable<BienEchange> GetByOptionsBien(int option_id, string choice)
         {
-            
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT [BienEchange].[idBien], [titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [Assurance] [isEnabled], [DisabledDate], [Latitude], [Longitude], [idMember], [DateCreation] FROM [BienEchange] JOIN [OptionsBien] ON [BienEchange].[idBien] = [idBien] WHERE [OptionsBien].[idOption] = @option AND [OptionsBien].[Valeur] = @choix";
+                    SqlParameter p_option = new SqlParameter() { ParameterName = "option", Value = option_id };
+                    command.Parameters.Add(p_option);
+                    SqlParameter p_choice = new SqlParameter() { ParameterName = "choix", Value = choice };
+                    command.Parameters.Add(p_option);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) yield return Mapper.ToBien(reader);
+                }
+            }
         }
 
         public BienEchange GetByOptionsId(int optionsId)

@@ -1,9 +1,8 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace HoliDayRental.Models
 {
@@ -31,9 +30,9 @@ namespace HoliDayRental.Models
 
         [ScaffoldColumn(false)]
         [Required]
-        public int idPays { get; set; }
+        public int Pays { get; set; }
         [DisplayName("Pays")]
-        public IEnumerable<Country> Countries  { get; set; }
+        public IEnumerable<PaysDetails> ListePays { get; set; }
 
         [Required]
         [DisplayName("Ville")]

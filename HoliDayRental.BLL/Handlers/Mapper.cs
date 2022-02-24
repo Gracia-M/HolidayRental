@@ -1,7 +1,4 @@
 ﻿using B = HoliDayRental.BLL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using D = HoliDayRental.DAL.Entities;
 
 namespace HoliDayRental.BLL.Handlers
@@ -87,20 +84,16 @@ namespace HoliDayRental.BLL.Handlers
         {
             if (entity == null) return null;
             return new B.OptionsBien(
-                entity.idOption,
-                entity.idBien,
-                entity.Valeur
+                entity.Valeur  
                 );
         }
         public static D.OptionsBien ToDAL(this B.OptionsBien entity)
         {
             if (entity == null) return null;
-            return new D.Options
+            return new D.OptionsBien
             {
                 Valeur = entity.Valeur,
-                idBien= entity.idBien,
-                idOption = entity.idOption,
-
+ 
             };
         }
         public static B.Options ToBLL(this D.Options entity)
@@ -119,8 +112,7 @@ namespace HoliDayRental.BLL.Handlers
             {
                 idOption = entity.idOption,
                 Libelle = entity.Libelle
-               
-
+             
             };
         }
 

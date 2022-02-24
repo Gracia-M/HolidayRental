@@ -14,4 +14,9 @@
     <Folder Include="Views\Membre\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HoliDayRental.BLL\HoliDayRental.BLL.csproj" />
+    <ProjectReference Include="..\HoliDayRental.Common\HoliDayRental.Common.csproj" />
+  </ItemGroup>
+
 </Project>
