@@ -29,8 +29,8 @@ namespace HoliDayRental.BLL.Entities
             Valeur = valeur;
             idOption = option_id;
             idBien = bien_id;
-            BienEchange = null;
-            Options = null;
+            Bien = null;
+            Option = null;
         }
 
     }

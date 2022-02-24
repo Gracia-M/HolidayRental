@@ -10,12 +10,12 @@ namespace HoliDayRental.Models
     public class BienEchangeCreate
     {
         [Required]
-        [DisplayName("Titre")]
+        [DisplayName("Titre du bien")]
         [DataType(DataType.Text)]
         public string titre { get; set; }
 
         [Required]
-        [DisplayName("Resumé")]
+        [DisplayName("Description courte")]
         [DataType(DataType.Text)]
         public string DescCourte { get; set; }
 
@@ -33,7 +33,7 @@ namespace HoliDayRental.Models
         [Required]
         public int idPays { get; set; }
         [DisplayName("Pays")]
-        public IEnumerable<Pays> PaysList { get; set; }
+        public IEnumerable<Country> Countries  { get; set; }
 
         [Required]
         [DisplayName("Ville")]

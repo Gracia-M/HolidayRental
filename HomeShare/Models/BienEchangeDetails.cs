@@ -16,7 +16,7 @@ namespace HoliDayRental.Models
         [DisplayName("Titre")]
         public string titre { get; set; }
 
-        [DisplayName("Resumé")]
+        [DisplayName("Description courte")]
         public string DescCourte { get; set; }
 
         [DisplayName("Description")]

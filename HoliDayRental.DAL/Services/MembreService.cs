@@ -17,14 +17,14 @@ namespace HoliDayRental.DAL.Services
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT [idMembre] FROM [Membre] WHERE [Login] = @login AND [Password] = @pswd";
-                   
+
                     SqlParameter p_login = new SqlParameter() { ParameterName = "login", Value = login };
                     SqlParameter p_password = new SqlParameter() { ParameterName = "pswd", Value = password };
 
                     command.Parameters.Add(p_login);
                     command.Parameters.Add(p_password);
                     connection.Open();
-              
+
                     object result = command.ExecuteScalar();
                     if (result is null) return -1;
                     return (int)result;
@@ -94,7 +94,7 @@ namespace HoliDayRental.DAL.Services
                     SqlParameter p_mail = new SqlParameter { ParameterName = "email", Value = entity.Email };
                     SqlParameter p_pays = new SqlParameter { ParameterName = "pays", Value = entity.Pays };
                     SqlParameter p_phone = new SqlParameter { ParameterName = "phone", Value = entity.Telephone };
-                    SqlParameter p_login= new SqlParameter { ParameterName = "login", Value = entity.Login };
+                    SqlParameter p_login = new SqlParameter { ParameterName = "login", Value = entity.Login };
                     SqlParameter p_password = new SqlParameter { ParameterName = "pswd", Value = entity.Password };
 
                     command.Parameters.Add(p_nom);
@@ -139,5 +139,6 @@ namespace HoliDayRental.DAL.Services
                     command.ExecuteNonQuery();
                 }
             }
+        }
     }
 }

@@ -24,12 +24,9 @@ namespace HoliDayRental.BLL.Handlers
                 entity.CodePostal,
                 entity.Photo,
                 entity.AssuranceObligatoire,
-                entity.isEnabled,
-                entity.DisabledDate,
                 entity.Latitude,
                 entity.Longitude,
-                entity.DateCreation
-
+                entity.idMembre
                 );
         }
         public static D.BienEchange ToBLL(this B.BienEchange entity)
@@ -39,20 +36,110 @@ namespace HoliDayRental.BLL.Handlers
             {
                 idBien = entity.idBien,
                 titre = entity.titre,
-                descriptionCourte = entity.descriptionCourte,
-                descriptionLongue = entity.descriptionLongue,
+                DescCourte = entity.DescCourte,
+                DescLong = entity.DescLong,
+                NombrePerson = entity.NombrePerson,
                 Pays = entity.Pays,
                 Ville = entity.Ville,
                 Rue = entity.Rue,
                 Numero = entity.Numero,
                 CodePostal = entity.CodePostal,
                 Photo = entity.Photo,
-                nbrSalleBains = entity.nbrSalleBains,
-                nbrWC = entity.nbrWC,
-                dateDebut = entity.dateDebut,
-                dateFin = entity.dateFin
+                AssuranceObligatoire = entity.AssuranceObligatoire,
+                Latitude = entity.Latitude,
+                Longitude = entity.Longitude,
+                idMembre = entity.idMembre,
             };
 
+        }
+        public static B.Membre ToBLL(this D.Membre entity)
+        {
+            if (entity == null) return null;
+            return new B.Membre(
+                entity.idMembre,
+                entity.Nom,
+                entity.Prenom,
+                entity.Email,
+                entity.Pays,
+                entity.Telephone,
+                entity.Login,
+                entity.Password
+
+            );
+        }
+
+        public static D.Membre ToBLL(this B.Membre entity)
+        {
+            if (entity == null) return null;
+            return new D.Membre
+            {
+                idMembre = entity.idMembre,
+                Nom = entity.Nom,
+                Prenom = entity.Prenom,
+                Email = entity.Email,
+                Pays = entity.Pays,
+                Telephone = entity.Telephone,
+                Login = entity.Login,
+                Password = entity.Password
+            };
+        }
+        public static B.OptionsBien ToBLL(this D.OptionsBien entity)
+        {
+            if (entity == null) return null;
+            return new B.OptionsBien(
+                entity.idOption,
+                entity.idBien,
+                entity.Valeur
+                );
+        }
+        public static D.OptionsBien ToDAL(this B.OptionsBien entity)
+        {
+            if (entity == null) return null;
+            return new D.Options
+            {
+                Valeur = entity.Valeur,
+                idBien= entity.idBien,
+                idOption = entity.idOption,
+
+            };
+        }
+        public static B.Options ToBLL(this D.Options entity)
+        {
+            if (entity == null) return null;
+            return new B.Options(
+                entity.idOption,
+                entity.Libelle
+                
+                );
+        }
+        public static D.Options ToDAL(this B.Options entity)
+        {
+            if (entity == null) return null;
+            return new D.Options
+            {
+                idOption = entity.idOption,
+                Libelle = entity.Libelle
+               
+
+            };
+        }
+
+        public static B.Pays ToBLL(this D.Pays entity)
+        {
+            if (entity == null) return null;
+            return new B.Pays(
+                entity.idPays,
+                entity.Libelle);
+        }
+
+        public static D.Pays ToDAL(this B.Pays entity)
+        {
+            if (entity == null) return null;
+            return new D.Pays
+            {
+                idPays = entity.idPays,
+                Libelle = entity.Libelle
+            };
         }
     }
 }
