@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HoliDayRental.DAL.Services
 {
-    public class MembreBienEchangeService : ServiceBase, 
+    public class MembreBienEchangeService : ServiceBase
     {
     }
 }

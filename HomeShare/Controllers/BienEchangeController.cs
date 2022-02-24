@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HoliDayRental.BLL.Entities;
+using HoliDayRental.Common.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,23 @@ namespace HoliDayRental.Controllers
 {
     public class BienEchangeController : Controller
     {
+        private readonly IBienEchangeRepository<BienEchange> _bienService;
+        private readonly IPaysRepository<Pays> _paysService;
+        private readonly IOptionsBienRepository<OptionsBien> _optionBienService;
+        private readonly IOptionsRepository<Options> _optionService;
+
+        public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService)
+        {
+            _bienService = bienService;
+            _paysService = paysService;
+
+        }
+
         // GET: BienEchangeController
+
+        [Route("BienEchange/ListeBiens")]
+        [Route("BienEchange")]
+
         public ActionResult Index()
         {
             return View();

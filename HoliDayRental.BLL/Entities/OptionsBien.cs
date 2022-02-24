@@ -33,5 +33,9 @@ namespace HoliDayRental.BLL.Entities
             Option = null;
         }
 
+        public OptionsBien(string valeur)
+        {
+            Valeur = valeur;
+        }
     }
 }

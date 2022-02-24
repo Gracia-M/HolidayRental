@@ -8,6 +8,6 @@ namespace HoliDayRental.Common.Repositories
         IGetByOptionsBienRepository<TOptions>
     {
         IEnumerable<TOptions> GetByCriteria(int criteria);
-        
+        IEnumerable<TOptions> GetByValue(int value);
     }
 }

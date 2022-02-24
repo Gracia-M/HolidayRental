@@ -30,9 +30,9 @@ namespace HoliDayRental.BLL.Services
 
         public IEnumerable<OptionsBien> GetByValue(int value)
         {
-            return _optionRepository.GetByValue(value).Select(opt => {
-                OptionsBien result = opt.ToBLL();
-                result.BienEchange = _bienRepository.Get(result.idBien).ToBLL();
+            return _optionRepository.GetByValue(value).Select(op => {
+                OptionsBien result = op.ToBLL();
+                result.Bien = _bienRepository.Get(result.idBien).ToBLL();
                 result.Option = _optionRepository.Get(result.idOption).ToBLL();
                 return result;
             });
@@ -41,8 +41,8 @@ namespace HoliDayRental.BLL.Services
         public OptionsBien Get(int id)
         {
             OptionsBien result = _optionBienRepository.Get(id).ToBLL();
-            result.Bienchange = _cinemaRepository.Get(result.Cinema_Id).ToBLL();        
-            result.Film = _filmRepository.Get(result.Film_Id).ToBLL();
+            result.Bien = _bienRepository.Get(result.idBien).ToBLL();        
+            result.Option = _optionRepository.Get(result.idOption).ToBLL();
             return result;
         }
 
@@ -60,8 +60,8 @@ namespace HoliDayRental.BLL.Services
         {
             return _optionBienRepository.GetByOptionId(option_id).Select(opt => {
                 OptionsBien result = opt.ToBLL();
-                result.BienEchange = _bienRepository.Get(result.idBien).ToBLL();
-                result.Options = _optionRepository.Get(result.idOption).ToBLL();
+                result.Bien = _bienRepository.Get(result.idBien).ToBLL();
+                result.Option = _optionRepository.Get(result.idOption).ToBLL();
                 return result;
             });
 
