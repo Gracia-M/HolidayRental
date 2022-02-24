@@ -29,7 +29,7 @@ namespace HoliDayRental.BLL.Entities
         public DateTime DateCreation { get; set; }
 
 
-        public IEnumerable<OptionsBien> Options { get; set; }
+        public IEnumerable<OptionsBien> ListeOptions { get; set; }
 
 
         public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, Pays country, string city, string street, string number, string zipcode, string picture, bool insurance, string latitude, string longitude, Membre member)

@@ -31,7 +31,7 @@ namespace HoliDayRental.BLL.Services
         public Membre Get(int id)
         {
             Membre result = _membreRepository.Get(id).ToBLL();
-            result.Pays = _paysRepository.Get(result.Pays).ToBLL();
+            result.Country = _paysRepository.Get(result.Pays).ToBLL();
             return result;
         }
 
@@ -40,7 +40,7 @@ namespace HoliDayRental.BLL.Services
             return _membreRepository.Get().Select(d =>
             {
                 Membre result = d.ToBLL();
-                result.Pays = _paysRepository.Get(result.Pays).ToBLL();
+                result.Country = _paysRepository.Get(result.Pays).ToBLL();
                 return result;
             });
         }
@@ -49,8 +49,7 @@ namespace HoliDayRental.BLL.Services
         {
             return _membreRepository.Insert(entity.ToDAL());
         }
-
-        public void Update(int id, Membre entity)
+        public void update(int id, Membre entity)
         {
             _membreRepository.Update(id, entity.ToDAL());
         }

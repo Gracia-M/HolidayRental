@@ -30,7 +30,8 @@ namespace HoliDayRental.BLL.Services
 
         public IEnumerable<OptionsBien> GetByValue(int value)
         {
-            return _optionRepository.GetByValue(value).Select(op => {
+            return _optionRepository.GetByValue(value).Select(op =>
+            {
                 OptionsBien result = op.ToBLL();
                 result.Bien = _bienRepository.Get(result.idBien).ToBLL();
                 result.Option = _optionRepository.Get(result.idOption).ToBLL();

@@ -60,9 +60,9 @@ namespace HoliDayRental.BLL.Services
             return _bienEchangeRepository.Insert(entity.ToDAL());
         }
 
-            public void Update(int id, BienEchange entity)
-        {
+        public void Update(int id, BienEchange entity)=>
             _bienEchangeRepository.Update(id, entity.ToDAL());
         }
     }
 }
+

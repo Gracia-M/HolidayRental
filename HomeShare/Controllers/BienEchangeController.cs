@@ -1,5 +1,7 @@
 ﻿using HoliDayRental.BLL.Entities;
 using HoliDayRental.Common.Repositories;
+using HoliDayRental.Handlers;
+using HoliDayRental.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,8 +15,9 @@ namespace HoliDayRental.Controllers
     {
         private readonly IBienEchangeRepository<BienEchange> _bienService;
         private readonly IPaysRepository<Pays> _paysService;
-        private readonly IOptionsBienRepository<OptionsBien> _optionBienService;
-        private readonly IOptionsRepository<Options> _optionService;
+
+        //private readonly IOptionsBienRepository<OptionsBien> _optionBienService;
+        //private readonly IOptionsRepository<Options> _optionService;
 
         public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService)
         {
@@ -28,22 +31,37 @@ namespace HoliDayRental.Controllers
         [Route("BienEchange/ListeBiens")]
         [Route("BienEchange")]
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            try
+            {
+                IEnumerable<BienEchangeList> model = _bienService.Get().Select(c => c.ToListItem());
+                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.Pays).ToDetails(); return m; });
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
         }
 
         // GET: BienEchangeController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
-            return View();
+        BienEchangeDetails model = _bienService.Get(id).ToDetails();
+        model.ListePays = _paysService.Get((int)model.Pays).ToDetails();
+        return View(model);
         }
 
         // GET: BienEchangeController/Create
         public ActionResult Create()
         {
-            return View();
-        }
+        BienEchangeCreate model = new BienEchangeCreate();
+        
+        model.ListePays = _paysService.Get().Select(s => s.ToDetails());
+
+        return View(model);
+    }
 
         // POST: BienEchangeController/Create
         [HttpPost]

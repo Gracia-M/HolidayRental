@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HoliDayRental.BLL.Entities;
+using HoliDayRental.Common.Repositories;
+using HoliDayRental.Handlers;
+using HoliDayRental.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,22 +13,51 @@ namespace HoliDayRental.Controllers
 {
     public class MembreController : Controller
     {
-        // GET: MembreController
-        public ActionResult Index()
+        private readonly IMembreRepository<Membre> _membreService;
+        private readonly IPaysRepository<Pays> _paysService;
+
+        public MembreController(IMembreRepository<Membre> membreService, IPaysRepository<Pays> paysService)
         {
-            return View();
+            _membreService = membreService;
+            _paysService = paysService;
+
         }
 
-        // GET: MembreController/Details/5
-        public ActionResult Details(int id)
+
+        // GET: MembreController
+        public IActionResult Index()
         {
-            return View();
+            return View("Liste des membres ");
+        }
+
+        public IActionResult ListeMembre()
+        {
+            try
+            {
+                IEnumerable<MembreList> model = _membreService.Get().Select(c => c.ToListItem());
+                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.Pays).ToDetails(); return m; });
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
+        }
+        // GET: MembreController/Details/5
+        public IActionResult Details(int id)
+        {
+            MembreDetails model = _membreService.Get(id).ToDetails();
+            model.ListePays = _paysService.Get((int)model.Pays).ToDetails();
+            return View(model);
         }
 
         // GET: MembreController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
-            return View();
+            MembreCreate model = new MembreCreate();
+            model.ListePays = _paysService.Get().Select(s => s.ToDetails());
+
+            return View(model);
         }
 
         // POST: MembreController/Create
