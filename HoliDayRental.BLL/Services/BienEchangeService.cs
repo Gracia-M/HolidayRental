@@ -1,68 +1,73 @@
 ﻿using HoliDayRental.BLL.Entities;
 using HoliDayRental.BLL.Handlers;
 using HoliDayRental.Common.Repositories;
+using HoliDayRental.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using B = HoliDayRental.BLL.Entities;
+using D = HoliDayRental.DAL.Entities;
 
 namespace HoliDayRental.BLL.Services
 {
-    public class BienEchangeService : IBienEchangeRepository<BienEchange>
+    public class BienEchangeService : IBienEchangeRepository<B.BienEchange>
     {
-        private readonly IBienEchangeRepository<DAL.Entities.BienEchange> _bienEchangeRepository;
-        public BienEchangeService(IBienEchangeRepository<DAL.Entities.BienEchange> repository)
+        private readonly IBienEchangeRepository<D.BienEchange> _bienEchangeRepository;
+        private readonly IMembreRepository<D.Membre> _membreRepository;
+        private readonly IPaysRepository<D.Pays> _paysRepository;
+        public BienEchangeService(IBienEchangeRepository<D.BienEchange> repository, IMembreRepository<D.Membre> membreRepository, IPaysRepository<D.Pays> paysRepository)
         {
             _bienEchangeRepository = repository;
+            _membreRepository = membreRepository;
+            _paysRepository = paysRepository;
         }
+
         public void Delete(int id)
         {
             _bienEchangeRepository.Delete(id);
         }
 
-        public BienEchange Get(int id)
+        public B.BienEchange Get(int id)
         {
-            return _bienEchangeRepository.Get(id).ToBLL();
+            B.BienEchange result = _bienEchangeRepository.Get(id).ToBLL();
+            result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
+            result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+            return result;
         }
 
-        public IEnumerable<BienEchange> Get()
+        public IEnumerable<B.BienEchange> Get()
         {
-            return _bienEchangeRepository.Get().Select(b => b.ToBLL());
+            return _bienEchangeRepository.Get().Select(d =>
+            {
+                B.BienEchange result = d.ToBLL();
+                result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
+                result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+                return result;
+            });
         }
 
-        public IEnumerable<BienEchange> GetByCapacity(int nbrPerson)
-        {
-            return _bienEchangeRepository.GetByOption(nbrPerson).Select(b => b.ToBLL());
-        }
-
-        public IEnumerable<BienEchange> GetByCountry(int country_id)
-        {
-            return _bienEchangeRepository.GetByOption(country_id).Select(b => b.ToBLL());
-        }
-
-        public IEnumerable<BienEchange> GetByOption(int option_id)
-        {
-            return _bienEchangeRepository.GetByOption(option_id).Select(b => b.ToBLL());
-        }
-
-        public IEnumerable<BienEchange> GetByOptionsBien(int option_id, string choice)
-        {
-            return _bienEchangeRepository.GetByOptionsBien(option_id, choice).Select(b => b.ToBLL());
-        }
-
-        public BienEchange GetByOptionsId(int optionsId)
-        {
-            return _bienEchangeRepository.GetByOptionsId(optionsId).ToBLL();
-        }
-
-        public int Insert(BienEchange entity)
+        public int Insert(B.BienEchange entity)
         {
             return _bienEchangeRepository.Insert(entity.ToDAL());
         }
 
-        public void Update(int id, BienEchange entity)=>
+        public IEnumerable<B.BienEchange> LastFiveBiens()
+        {
+            return _bienEchangeRepository.LastFiveBiens().Select(d =>
+            {
+                B.BienEchange result = d.ToBLL();
+                result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
+                result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+                return result;
+            });
+        }
+
+        public void Update(int id, B.BienEchange entity)
+        {
             _bienEchangeRepository.Update(id, entity.ToDAL());
         }
+
     }
 }
 

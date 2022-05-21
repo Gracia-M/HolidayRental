@@ -12,7 +12,7 @@ namespace HoliDayRental.BLL.Entities
         public string DescCourte { get; set; }
         public string DescLong { get; set; }
         public int NombrePerson { get; set; }
-        public int Pays { get; set; }
+        public int Pays_Id { get; set; }
         public Pays Country { get; set; }
         public string Ville { get; set; }
         public string Rue { get; set; }
@@ -29,7 +29,7 @@ namespace HoliDayRental.BLL.Entities
         public DateTime DateCreation { get; set; }
 
 
-        public IEnumerable<OptionsBien> ListeOptions { get; set; }
+        //public IEnumerable<OptionsBien> ListeOptions { get; set; }
 
 
         public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, Pays country, string city, string street, string number, string zipcode, string picture, bool insurance, string latitude, string longitude, Membre member)
@@ -40,8 +40,8 @@ namespace HoliDayRental.BLL.Entities
             DescLong = longDescr;
             NombrePerson = nrOfPeople;
             Country = country;
-            if (country == null) throw new ArgumentNullException(nameof(Pays));
-            Pays = country.idPays;
+            if (country == null) throw new ArgumentNullException(nameof(Pays_Id));
+            Pays_Id = country.idPays;
             Ville = city;
             Rue = street;
             Numero = number;
@@ -64,7 +64,7 @@ namespace HoliDayRental.BLL.Entities
             DescCourte = shortDescr;
             DescLong = longDescr;
             NombrePerson = nrOfPeople;
-            Pays = pays_id;
+            Pays_Id = pays_id;
             Ville = city;
             Rue = street;
             Numero = number;

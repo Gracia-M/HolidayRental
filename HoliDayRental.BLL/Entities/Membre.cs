@@ -11,7 +11,7 @@ namespace HoliDayRental.BLL.Entities
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Email { get; set; }
-        public int Pays { get; set; }
+        public int Pays_Id { get; set; }
         public Pays Country { get; set; }
         public string Telephone { get; set; }
         public string Login { get; set; }
@@ -27,8 +27,8 @@ namespace HoliDayRental.BLL.Entities
             Prenom = prenom;
             Email = email;
             Country = country;
-            if (country == null) throw new ArgumentNullException(nameof(Pays));
-            Pays = country.idPays;
+            if (country == null) throw new ArgumentNullException(nameof(Pays_Id));
+            Pays_Id = country.idPays;
             Telephone = phone;
             Login = login;
             Password = password;
@@ -40,7 +40,7 @@ namespace HoliDayRental.BLL.Entities
             Nom = nom;
             Prenom = prenom;
             Email = email;
-            Pays = pays_id;
+            Pays_Id = pays_id;
             Telephone = telephone;
             Login = login;
             Password = password;

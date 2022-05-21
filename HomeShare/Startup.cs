@@ -1,3 +1,7 @@
+using HoliDayRental.BLL.Entities;
+using HoliDayRental.BLL.Services;
+using HoliDayRental.Common.Repositories;
+using HoliDayRental.DAL.Services;
 using HoliDayRental.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using B = HoliDayRental.BLL.Entities;
+using D = HoliDayRental.DAL.Entities;
+using BS = HoliDayRental.BLL.Services;
+using DS = HoliDayRental.DAL.Services;
 
 namespace HoliDayRental
 {
@@ -25,7 +33,7 @@ namespace HoliDayRental
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession(options =>
             {
@@ -35,6 +43,23 @@ namespace HoliDayRental
             });      //permet de configurer les sessions pour mon application
 
             services.AddControllersWithViews();
+
+            // DEPENDANCES
+
+            // Dépendance pour la DAL
+            services.AddScoped<IBienEchangeRepository<D.BienEchange>, DS.BienEchangeService>();
+            services.AddScoped<IMembreRepository<D.Membre>, DS.MembreService>();
+            services.AddScoped<IPaysRepository<D.Pays>, DS.PaysService>();
+
+            // Dépendance pour le BLL
+            services.AddScoped<IBienEchangeRepository<B.BienEchange>, BS.BienEchangeService>();
+            services.AddScoped<IMembreRepository<B.Membre>, BS.MembreService>();
+            services.AddScoped<IPaysRepository<B.Pays>, BS.PaysService>();
+
+            // Pour Session Manager 
+            services.AddHttpContextAccessor();
+            services.AddScoped<SessionManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +76,8 @@ namespace HoliDayRental
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            // SESSION
             app.UseSession(); //Permet d'utiliser le middlewate session pour notre application
             app.UseStaticFiles();
 

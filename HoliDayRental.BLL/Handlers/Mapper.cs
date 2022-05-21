@@ -26,7 +26,7 @@ namespace HoliDayRental.BLL.Handlers
                 entity.idMembre
                 );
         }
-        public static D.BienEchange ToBLL(this B.BienEchange entity)
+        public static D.BienEchange ToDAL(this B.BienEchange entity)
         {
             if (entity == null) return null;
             return new D.BienEchange
@@ -36,7 +36,7 @@ namespace HoliDayRental.BLL.Handlers
                 DescCourte = entity.DescCourte,
                 DescLong = entity.DescLong,
                 NombrePerson = entity.NombrePerson,
-                Pays = entity.Pays,
+                Pays = entity.Pays_Id,
                 Ville = entity.Ville,
                 Rue = entity.Rue,
                 Numero = entity.Numero,
@@ -65,7 +65,7 @@ namespace HoliDayRental.BLL.Handlers
             );
         }
 
-        public static D.Membre ToBLL(this B.Membre entity)
+        public static D.Membre ToDAL(this B.Membre entity)
         {
             if (entity == null) return null;
             return new D.Membre
@@ -74,7 +74,7 @@ namespace HoliDayRental.BLL.Handlers
                 Nom = entity.Nom,
                 Prenom = entity.Prenom,
                 Email = entity.Email,
-                Pays = entity.Pays,
+                Pays = entity.Pays_Id,
                 Telephone = entity.Telephone,
                 Login = entity.Login,
                 Password = entity.Password

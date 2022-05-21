@@ -117,8 +117,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE [Membre] SET [Nom] = @nom, [Prenom] = @prenom, [Email] = @email, [Pays]=@pays, [Telephone]=@phone, [Login]=@login, [Password]=@pswd" +
-                        "WHERE [idMembre] = @id";
+                    command.CommandText = "UPDATE [Membre] SET [Nom] = @nom, [Prenom] = @prenom, [Email] = @email, [Pays]= @pays, [Telephone]= @phone, [Login]= @login, [Password]= @pswd, WHERE [idMembre] = @id";
                     SqlParameter p_nom = new SqlParameter { ParameterName = "nom", Value = entity.Nom };
                     SqlParameter p_prenom = new SqlParameter { ParameterName = "prenom", Value = entity.Prenom };
                     SqlParameter p_mail = new SqlParameter { ParameterName = "email", Value = entity.Email };
@@ -126,6 +125,8 @@ namespace HoliDayRental.DAL.Services
                     SqlParameter p_phone = new SqlParameter { ParameterName = "phone", Value = entity.Telephone };
                     SqlParameter p_login = new SqlParameter { ParameterName = "login", Value = entity.Login };
                     SqlParameter p_password = new SqlParameter { ParameterName = "pswd", Value = entity.Password };
+                    SqlParameter p_id = new SqlParameter { ParameterName = "id", Value = entity.idMembre };
+
 
                     command.Parameters.Add(p_nom);
                     command.Parameters.Add(p_prenom);
@@ -134,6 +135,7 @@ namespace HoliDayRental.DAL.Services
                     command.Parameters.Add(p_phone);
                     command.Parameters.Add(p_login);
                     command.Parameters.Add(p_password);
+                    command.Parameters.Add(p_id);
 
                     connection.Open();
                     command.ExecuteNonQuery();

@@ -66,7 +66,7 @@ namespace HoliDayRental.Handlers
                 Nom = entity.Nom,
                 Prenom = entity.Prenom,
                 Email = entity.Email,
-                Pays = entity.Pays,
+                Pays = entity.Pays_Id,
                 Telephone = entity.Telephone
             };
         }
@@ -80,7 +80,7 @@ namespace HoliDayRental.Handlers
                 Nom = entity.Nom,
                 Prenom = entity.Prenom,
                 Email = entity.Email,
-                Pays = entity.Pays,
+                Pays = entity.Pays_Id,
                 Telephone = entity.Telephone,
                 Login = entity.Login,
                 Password = entity.Password
