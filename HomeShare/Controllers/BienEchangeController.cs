@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace HoliDayRental.Controllers
 {
     public class BienEchangeController : Controller
@@ -71,18 +72,18 @@ namespace HoliDayRental.Controllers
         // POST: BienEchangeController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(BienEchangeCreate collection)
         {
             try
             {
                 if (!ModelState.IsValid) throw new Exception();
                 BienEchange result = new BienEchange(
                     0,
-                    collection.title,
+                    collection.titre,
                     collection.DescCourte,
                     collection.DescLong,
                     collection.NombrePerson,
-                    collection.idPays,
+                    collection.Pays,
                     collection.Ville,
                     collection.Rue,
                     collection.Numero,

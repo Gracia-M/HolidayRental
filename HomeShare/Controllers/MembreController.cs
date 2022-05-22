@@ -62,58 +62,98 @@ namespace HoliDayRental.Controllers
 
         // POST: MembreController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        // [ValidateAntiForgeryToken]
+        public ActionResult Create(MembreCreate collection)
         {
             try
             {
+                if (!ModelState.IsValid) throw new Exception();
+                if (!collection.CheckCondition) throw new ArgumentException("Merci d'accepter les conditions");
+                Membre result = new Membre(
+                    0,
+                    collection.Nom,
+                    collection.Prenom,
+                    collection.Email,
+                    collection.idPays,
+                    collection.Telephone,
+                    collection.Login,
+                    collection.Password
+                );
+                result.idMembre = this._membreService.Insert(result);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                collection.ListePays = _paysService.Get().Select(s => s.ToDetails());
+                return View(collection);
             }
         }
 
         // GET: MembreController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            MembreEdit model = this._membreService.Get(id).ToEdit();
+            model.ListePays = _paysService.Get().Select(s => s.ToDetails());
+
+            return View(model);
         }
 
         // POST: MembreController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, MembreEdit collection)
         {
+            Membre result = this._membreService.Get(id);
             try
             {
+                if (result is null) throw new Exception("Pas de membre avec cet identifiant");
+                if (!(ModelState.IsValid)) throw new Exception();
+                //Les tests de validations étant correct, on met à jour l'étudiant 'result' avant l'envoi dans la DB
+                result.Nom = collection.Nom;
+                result.Prenom = collection.Prenom;
+                result.Email = collection.Email;
+                result.Pays_Id = collection.idPays;
+                result.Telephone = collection.Telephone;
+                result.Login = collection.Login;
+                if (collection.Password is not null) result.Password = collection.Password;
+                this._membreService.Update(id, result);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                if (result is null) return RedirectToAction(nameof(Index));
+                collection.ListePays = _paysService.Get().Select(s => s.ToDetails());
+                return View(result.ToEdit());
             }
         }
 
         // GET: MembreController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            MembreDelete model = this._membreService.Get(id).ToDelete();
+            return View(model);
         }
 
         // POST: MembreController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, MembreDelete collection)
         {
+            Membre result = this._membreService.Get(id);
             try
             {
+                if (result is null) throw new Exception("Pas de membre avec cet identifiant.");
+                if (!ModelState.IsValid) throw new Exception();
+                if (!collection.Validate) throw new Exception("Action non validée...");
+                this._membreService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                return RedirectToAction(nameof(Index));
             }
         }
     }

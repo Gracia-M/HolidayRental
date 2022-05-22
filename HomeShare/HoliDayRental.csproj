@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\HoliDayRental.BLL\HoliDayRental.BLL.csproj" />
     <ProjectReference Include="..\HoliDayRental.Common\HoliDayRental.Common.csproj" />
-    <ProjectReference Include="..\HoliDayRental.DB\HoliDayRental.DB.sqlproj" />
   </ItemGroup>
 
 </Project>

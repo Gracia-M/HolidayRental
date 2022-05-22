@@ -12,13 +12,13 @@ namespace HoliDayRental.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly IMembreRepository<Membre>_MembreService;
+        private readonly IMembreRepository<Membre>_membreService;
         private readonly SessionManager _session;
 
         public AccountController(ILogger<AccountController> logger, IMembreRepository<Membre> membreService, SessionManager session)
         {
             _logger = logger;
-            _MembreService = membreService;
+            _membreService = membreService;
             this._session = session;
         }
 
@@ -50,9 +50,9 @@ namespace HoliDayRental.Controllers
             //Session Manager
             _session.SetUser(form);
             //Création d'une méthode CheckPassword 
-            int id = _MembreService.checkPassword(form.Login, form.Password);
+            int id = _membreService.checkPassword(form.Login, form.Password);
             if (id == -1) return View();
-            _session.User = _MembreService.Get(id);
+            _session.User = _membreService.Get(id);
             return RedirectToAction("Index", "Home");
         }
 
