@@ -35,7 +35,7 @@ namespace HoliDayRental.Controllers
             try
             {
                 IEnumerable<MembreList> model = _membreService.Get().Select(c => c.ToListItem());
-                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.Pays).ToDetails(); return m; });
+                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
                 return View(model);
             }
             catch (Exception e)
@@ -47,7 +47,7 @@ namespace HoliDayRental.Controllers
         public IActionResult Details(int id)
         {
             MembreDetails model = _membreService.Get(id).ToDetails();
-            model.ListePays = _paysService.Get((int)model.Pays).ToDetails();
+            model.ListePays = _paysService.Get((int)model.idPays).ToDetails();
             return View(model);
         }
 

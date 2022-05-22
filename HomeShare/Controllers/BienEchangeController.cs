@@ -15,14 +15,16 @@ namespace HoliDayRental.Controllers
     {
         private readonly IBienEchangeRepository<BienEchange> _bienService;
         private readonly IPaysRepository<Pays> _paysService;
+        private readonly SessionManager _session;
 
         //private readonly IOptionsBienRepository<OptionsBien> _optionBienService;
         //private readonly IOptionsRepository<Options> _optionService;
 
-        public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService)
+        public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService, SessionManager session)
         {
             _bienService = bienService;
             _paysService = paysService;
+            _session = session;
 
         }
 
@@ -36,7 +38,7 @@ namespace HoliDayRental.Controllers
             try
             {
                 IEnumerable<BienEchangeList> model = _bienService.Get().Select(c => c.ToListItem());
-                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.Pays).ToDetails(); return m; });
+                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
                 return View(model);
             }
             catch (Exception e)
@@ -49,32 +51,57 @@ namespace HoliDayRental.Controllers
         public IActionResult Details(int id)
         {
         BienEchangeDetails model = _bienService.Get(id).ToDetails();
-        model.ListePays = _paysService.Get((int)model.Pays).ToDetails();
+        model.ListePays = _paysService.Get((int)model.idPays).ToDetails();
         return View(model);
         }
 
         // GET: BienEchangeController/Create
         public ActionResult Create()
         {
-        BienEchangeCreate model = new BienEchangeCreate();
-        
-        model.ListePays = _paysService.Get().Select(s => s.ToDetails());
+            if (!_session.IsConnected) return RedirectToAction("Login", "Account");
 
-        return View(model);
-    }
+            BienEchangeCreate model = new BienEchangeCreate();
+        
+            model.ListePays = _paysService.Get().Select(s => s.ToDetails());
+            model.idMembre = 1;
+
+            return View(model);
+        }
 
         // POST: BienEchangeController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
             {
+                if (!ModelState.IsValid) throw new Exception();
+                BienEchange result = new BienEchange(
+                    0,
+                    collection.title,
+                    collection.DescCourte,
+                    collection.DescLong,
+                    collection.NombrePerson,
+                    collection.idPays,
+                    collection.Ville,
+                    collection.Rue,
+                    collection.Numero,
+                    collection.CodePostal,
+                    collection.Photo,
+                    collection.AssuranceObligatoire,
+                    collection.Latitude,
+                    collection.Longitude,
+                    collection.idMembre
+                    );
+
+                result.idBien = this._bienService.Insert(result);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+                collection.ListePays = _paysService.Get().Select(s => s.ToDetails());
+                return View(collection);
             }
         }
 

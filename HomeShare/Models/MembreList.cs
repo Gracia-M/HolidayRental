@@ -24,7 +24,7 @@ namespace HoliDayRental.Models
         public string Email { get; set; }
 
         [ScaffoldColumn(false)]
-        public int Pays { get; set; }
+        public int idPays { get; set; }
         public PaysDetails ListePays { get; set; }
 
         [DisplayName("Pays")]

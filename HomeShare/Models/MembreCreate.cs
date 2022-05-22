@@ -26,7 +26,7 @@ namespace HoliDayRental.Models
 
         [ScaffoldColumn(false)]
         [Required]
-        public int Pays { get; set; }
+        public int idPays { get; set; }
         [DisplayName("Pays")]
         public IEnumerable<PaysDetails> ListePays { get; set; }
 
@@ -35,14 +35,19 @@ namespace HoliDayRental.Models
         [DataType(DataType.PhoneNumber)]
         public string Telephone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Le login est obligatoire.")]
         [DisplayName("Login")]
         [DataType(DataType.Text)]
         public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Le mot de passe est obligatoire.")]
         [DisplayName("Password")]
         [DataType(DataType.Password)]
+
         public string Password { get; set; }
+
+        public ConnectionForm Connection { get; set; }
+
+        public bool CheckCondition { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace HoliDayRental.Handlers
                 idBien = entity.idBien,
                 titre = entity.titre,
                 DescCourte = entity.DescCourte,
-                Pays = entity.Pays,
+                idPays = entity.Pays_Id,
                 NombrePerson = entity.NombrePerson,
                 Photo = entity.Photo,
                 Ville = entity.Ville
@@ -34,7 +34,7 @@ namespace HoliDayRental.Handlers
                 DescCourte = entity.DescCourte,
                 DescLong = entity.DescLong,
                 NombrePerson = entity.NombrePerson,
-                Pays = entity.Pays,
+                idPays = entity.Pays_Id,
                 Ville = entity.Ville,
                 Rue = entity.Rue,
                 Numero = entity.Numero,
@@ -66,7 +66,7 @@ namespace HoliDayRental.Handlers
                 Nom = entity.Nom,
                 Prenom = entity.Prenom,
                 Email = entity.Email,
-                Pays = entity.Pays_Id,
+                idPays = entity.Pays_Id,
                 Telephone = entity.Telephone
             };
         }
@@ -80,10 +80,36 @@ namespace HoliDayRental.Handlers
                 Nom = entity.Nom,
                 Prenom = entity.Prenom,
                 Email = entity.Email,
-                Pays = entity.Pays_Id,
+                idPays = entity.Pays_Id,
                 Telephone = entity.Telephone,
                 Login = entity.Login,
                 Password = entity.Password
+            };
+        }
+
+        public static MembreEdit ToEdit(this Membre entity)
+        {
+            if (entity == null) return null;
+            return new MembreEdit
+            {
+                Nom = entity.Nom,
+                Prenom = entity.Prenom,
+                Email = entity.Email,
+                idPays = entity.Pays_Id,
+                Telephone = entity.Telephone,
+                Login = entity.Login,
+                Password = entity.Password
+            };
+        }
+
+        public static MembreDelete ToDelete(this Membre entity)
+        {
+            if (entity == null) return null;
+            return new MembreDelete
+            {
+                Nom = entity.Nom,
+                Prenom = entity.Prenom,
+                Login = entity.Login
             };
         }
     }

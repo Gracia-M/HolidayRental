@@ -18,6 +18,7 @@ using B = HoliDayRental.BLL.Entities;
 using D = HoliDayRental.DAL.Entities;
 using BS = HoliDayRental.BLL.Services;
 using DS = HoliDayRental.DAL.Services;
+using HoliDayRental.Handlers;
 
 namespace HoliDayRental
 {
