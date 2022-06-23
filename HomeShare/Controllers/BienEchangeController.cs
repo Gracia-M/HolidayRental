@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using B = HoliDayRental.BLL.Entities;
 
 
 namespace HoliDayRental.Controllers
@@ -15,13 +16,13 @@ namespace HoliDayRental.Controllers
     public class BienEchangeController : Controller
     {
         private readonly IBienEchangeRepository<BienEchange> _bienService;
-        private readonly IPaysRepository<Pays> _paysService;
+        private readonly IPaysRepository<B.Pays> _paysService;
         private readonly SessionManager _session;
 
         //private readonly IOptionsBienRepository<OptionsBien> _optionBienService;
         //private readonly IOptionsRepository<Options> _optionService;
 
-        public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService, SessionManager session)
+        public BienEchangeController(IBienEchangeRepository<BienEchange> bienService, IPaysRepository<B.Pays> paysService, SessionManager session)
         {
             _bienService = bienService;
             _paysService = paysService;
@@ -39,7 +40,7 @@ namespace HoliDayRental.Controllers
             try
             {
                 IEnumerable<BienEchangeList> model = _bienService.Get().Select(c => c.ToListItem());
-                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+                model = model.Select(m => { m.Pays= _paysService.Get((int)m.idPays).ToDetails(); return m; });
                 return View(model);
             }
             catch (Exception e)
@@ -83,7 +84,7 @@ namespace HoliDayRental.Controllers
                     collection.DescCourte,
                     collection.DescLong,
                     collection.NombrePerson,
-                    collection.Pays,
+                    collection.idPays,
                     collection.Ville,
                     collection.Rue,
                     collection.Numero,

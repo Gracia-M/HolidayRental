@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using B = HoliDayRental.BLL.Entities;
 using D = HoliDayRental.DAL.Entities;
 using BS = HoliDayRental.BLL.Services;
 using DS = HoliDayRental.DAL.Services;
@@ -53,9 +52,9 @@ namespace HoliDayRental
             services.AddScoped<IPaysRepository<D.Pays>, DS.PaysService>();
 
             // Dépendance pour le BLL
-            services.AddScoped<IBienEchangeRepository<B.BienEchange>, BS.BienEchangeService>();
-            services.AddScoped<IMembreRepository<B.Membre>, BS.MembreService>();
-            services.AddScoped<IPaysRepository<B.Pays>, BS.PaysService>();
+            services.AddScoped<IBienEchangeRepository<BienEchange>, BS.BienEchangeService>();
+            services.AddScoped<IMembreRepository<Membre>, BS.MembreService>();
+            services.AddScoped<IPaysRepository<Pays>, BS.PaysService>();
 
             // Pour Session Manager 
             services.AddHttpContextAccessor();

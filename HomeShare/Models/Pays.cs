@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HoliDayRental.Models
 {
-    public class PaysDetails
+    public class Pays
     {
         [ScaffoldColumn(false)]
         [Key]

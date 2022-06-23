@@ -31,8 +31,8 @@ namespace HoliDayRental.BLL.Services
         public B.BienEchange Get(int id)
         {
             B.BienEchange result = _bienEchangeRepository.Get(id).ToBLL();
-            result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
-            result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+            result.Membre = _membreRepository.Get(result.Membre_Id).ToBLL();
+            result.Pays = _paysRepository.Get(result.Pays_Id).ToBLL();
             return result;
         }
 
@@ -41,8 +41,8 @@ namespace HoliDayRental.BLL.Services
             return _bienEchangeRepository.Get().Select(d =>
             {
                 B.BienEchange result = d.ToBLL();
-                result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
-                result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+                result.Membre = _membreRepository.Get(result.Membre_Id).ToBLL();
+                result.Pays = _paysRepository.Get(result.Pays_Id).ToBLL();
                 return result;
             });
         }
@@ -57,8 +57,8 @@ namespace HoliDayRental.BLL.Services
             return _bienEchangeRepository.LastFiveBiens().Select(d =>
             {
                 B.BienEchange result = d.ToBLL();
-                result.Membre = _membreRepository.Get(result.idMembre).ToBLL();
-                result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+                result.Membre = _membreRepository.Get(result.Membre_Id).ToBLL();
+                result.Pays = _paysRepository.Get(result.Pays_Id).ToBLL();
                 return result;
             });
         }

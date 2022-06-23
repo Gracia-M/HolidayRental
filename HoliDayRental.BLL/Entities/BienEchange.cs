@@ -11,9 +11,9 @@ namespace HoliDayRental.BLL.Entities
         public string titre { get; set; }
         public string DescCourte { get; set; }
         public string DescLong { get; set; }
-        public int NombrePerson { get; set; }
+        public int NombrePerson { get; set; } 
+        public Pays Pays { get; set; }
         public int Pays_Id { get; set; }
-        public Pays Country { get; set; }
         public string Ville { get; set; }
         public string Rue { get; set; }
         public string Numero { get; set; }
@@ -24,24 +24,24 @@ namespace HoliDayRental.BLL.Entities
         public DateTime? DisabledDate { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
-        public int idMembre { get; set; }
         public Membre Membre { get; set; }
+        public int Membre_Id { get; set; }
         public DateTime DateCreation { get; set; }
 
 
         //public IEnumerable<OptionsBien> ListeOptions { get; set; }
 
 
-        public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, Pays country, string city, string street, string number, string zipcode, string picture, bool insurance, string latitude, string longitude, Membre member)
+        public BienEchange(int id, string title, string shortDescr, string longDescr, int nrOfPeople, Pays pays, string city, string street, string number, string zipcode, string picture, bool insurance, string latitude, string longitude, Membre member)
         {
             idBien = id;
             titre = title;
             DescCourte = shortDescr;
             DescLong = longDescr;
             NombrePerson = nrOfPeople;
-            Country = country;
-            if (country == null) throw new ArgumentNullException(nameof(Pays_Id));
-            Pays_Id = country.idPays;
+            Pays = pays;
+            if (pays == null) throw new ArgumentNullException(nameof(Pays_Id));
+            Pays_Id = pays.idPays;
             Ville = city;
             Rue = street;
             Numero = number;
@@ -51,8 +51,8 @@ namespace HoliDayRental.BLL.Entities
             Latitude = latitude;
             Longitude = longitude;
             Membre = member;
-            if (member == null) throw new ArgumentNullException(nameof(idMembre));
-            idMembre = member.idMembre;
+            if (member == null) throw new ArgumentNullException(nameof(Membre_Id));
+            Membre_Id = member.idMembre;
 
 
         }
@@ -73,7 +73,7 @@ namespace HoliDayRental.BLL.Entities
             AssuranceObligatoire = insurance;
             Latitude = latitude;
             Longitude = longitude;
-            idMembre = member_id;
+            Membre_Id = member_id;
         }
     }
 

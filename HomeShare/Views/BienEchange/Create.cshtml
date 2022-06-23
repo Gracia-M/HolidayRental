@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label @*asp-for="Pays"*@ class="control-label"></label>
                 <div id="Pays" name="Pays">
-                    @Html.DropDownListFor(m => m.Pays, Model.ListePays.Select(d => new SelectListItem { Value = d.idPays.ToString(), Text = d.Libelle }), "Choisir un Pays ")
+                    @Html.DropDownListFor(m => m.idPays, Model.ListePays.Select(d => new SelectListItem { Value = d.idPays.ToString(), Text = d.Libelle }), "Choisir un Pays ")
                 </div>
                 <span @*asp-validation-for="Pays"*@ class="text-danger"></span>
             </div>

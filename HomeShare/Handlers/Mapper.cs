@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using B = HoliDayRental.BLL.Entities;
+using M = HoliDayRental.Models;
+
+
 
 namespace HoliDayRental.Handlers
 {
@@ -47,10 +51,10 @@ namespace HoliDayRental.Handlers
             };
         }
 
-        public static PaysDetails ToDetails(this Pays entity)
+        public static M.Pays ToDetails(this B.Pays entity)
         {
             if (entity == null) return null;
-            return new PaysDetails
+            return new M.Pays
             {
                 idPays = entity.idPays,
                 Libelle = entity.Libelle

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\HoliDayRental.Common\HoliDayRental.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\biens\" />
+  </ItemGroup>
+
 </Project>

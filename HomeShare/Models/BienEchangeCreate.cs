@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -30,9 +30,9 @@ namespace HoliDayRental.Models
 
         [ScaffoldColumn(false)]
         [Required]
-        public int Pays { get; set; }
+        public int idPays { get; set; }
         [DisplayName("Pays")]
-        public IEnumerable<PaysDetails> ListePays { get; set; }
+        public IEnumerable<Pays> ListePays { get; set; }
 
         [Required]
         [DisplayName("Ville")]

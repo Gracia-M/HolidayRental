@@ -29,10 +29,10 @@ namespace HoliDayRental.Models
 
         [ScaffoldColumn(false)]
         public int idPays { get; set; }
-        public  PaysDetails ListePays { get; set; }
+        public  Pays Pays { get; set; }
 
         [DisplayName("Pays")]
-        public string NomPays { get { return this.ListePays.Libelle; } }
+        public string NomPays { get { return this.Pays.Libelle; } }
 
 
     }

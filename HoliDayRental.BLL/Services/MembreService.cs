@@ -16,7 +16,7 @@ namespace HoliDayRental.BLL.Services
         private readonly IMembreRepository<D.Membre> _membreRepository;
         private readonly IPaysRepository<D.Pays> _paysRepository;
 
-        public MembreService(IMembreRepository<D.Membre> membreRepository, IPaysRepository<D.Pays> paysRepository)
+        public MembreService(IMembreRepository<D.Membre> membreRepository, IPaysRepository<D.Pays> paysRepository) 
         {
             _membreRepository = membreRepository;
             _paysRepository = paysRepository;
@@ -34,7 +34,7 @@ namespace HoliDayRental.BLL.Services
         public B.Membre Get(int id)
         {
             B.Membre result = _membreRepository.Get(id).ToBLL();
-            result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+            result.Pays = _paysRepository.Get(result.Pays_Id).ToBLL();
             return result;
         }
 
@@ -43,7 +43,7 @@ namespace HoliDayRental.BLL.Services
             return _membreRepository.Get().Select(d =>
             {
                 B.Membre result = d.ToBLL();
-                result.Country = _paysRepository.Get(result.Pays_Id).ToBLL();
+                result.Pays = _paysRepository.Get(result.Pays_Id).ToBLL();
                 return result;
             });
         }

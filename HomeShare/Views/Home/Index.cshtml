@@ -12,19 +12,20 @@
 
         <div class="sl-slider">
 
-            @*<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
-                    <div class="sl-slide-inner">
-                        <div class="bg-img bg-img-1"></div>
-                        <h2><a href="#">Une grande piscine et un magnifique jardin.</a></h2>
-                        <blockquote>
-                        <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
-                        <p>Maison moderne et spacieuse entourée d'un jardin florissant</p>
-                        <cite>Echanger</cite>
-                        </blockquote>
-                    </div>
-                </div>*@
+            <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
+            <div class="sl-slide-inner">
+                <div class="bg-img bg-img-1"></div>
+                <h2><a href="#">Une grande piscine et un magnifique jardin.</a></h2>
+                <blockquote>
+                <p class="location"><span class="glyphicon glyphicon-map-marker"></span> 1890 Syndey, Australia</p>
+                <p>Maison moderne et spacieuse entourée d'un jardin florissant</p>
+                <cite>Echanger</cite>
+                </blockquote>
+            </div>
+        </div>
+            @Html.Partial("_BienEchangeListPartial", Model.BiensEchanges)
 
-            @Html.Partial("_BienEchangeListePartiale", Model.BiensEchanges)
+            @*<partial name="_BienEchangeListPartial " model=Model.BiensEchanges />*@
 
         </div><!-- /sl-slider -->
 
@@ -72,7 +73,7 @@
                 {
                     @:<div class="col-lg-5 col-lg-offset-1 col-sm-6 ">
                         @:   <p>Rejoignez-nous et profitez des biens partout dans le monde.</p>
-                        @:   <button class="btn btn-info" data-toggle="modal" data-target="#loginpop">Se Connecter</button>
+                        @:   <button class="btn btn-info" data-toggle="modal" data-target="#loginpop">Se Connecter</button> </div>
 
 
                     @:</div>
@@ -80,11 +81,11 @@
                 else
                 {
                     @:<div class="col-lg-5 col-lg-offset-1 col-sm-6 ">
-                        @*<span class="btnAction">@Html.ActionLink("Se déconnecter", "Logout", "Account")</span>*@
+                        <span class="btnAction">@Html.ActionLink("Se déconnecter", "Logout", "Account")</span>
                     @:</div>
                 }
 
-            </div>
+           
         </div>
     </div>
 </div>
@@ -217,6 +218,7 @@
                             </div>
                         </div>
                         @Html.Partial("_Last5BienPartial", Model.BienEchange5Last)
+                        @*<partial name="_Last5BienPartial" model=Model.BienEchange5Last />*@
                     </div>
                 </div>
             </div>

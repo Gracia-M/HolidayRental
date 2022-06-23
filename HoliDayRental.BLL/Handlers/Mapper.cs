@@ -45,7 +45,7 @@ namespace HoliDayRental.BLL.Handlers
                 AssuranceObligatoire = entity.AssuranceObligatoire,
                 Latitude = entity.Latitude,
                 Longitude = entity.Longitude,
-                idMembre = entity.idMembre,
+                idMembre = entity.Membre_Id,
             };
 
         }

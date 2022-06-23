@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using B = HoliDayRental.BLL.Entities;
+
 
 namespace HoliDayRental.Controllers
 {
@@ -19,8 +21,8 @@ namespace HoliDayRental.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IBienEchangeRepository<BienEchange> _bienService;
-        private readonly IPaysRepository<Pays> _paysService;
-        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContext, IBienEchangeRepository<BienEchange> bienService, IPaysRepository<Pays> paysService)
+        private readonly IPaysRepository<B.Pays> _paysService;
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContext, IBienEchangeRepository<BienEchange> bienService, IPaysRepository<B.Pays> paysService)
         {
             _logger = logger; 
             _httpContext= httpContext;
@@ -41,10 +43,10 @@ namespace HoliDayRental.Controllers
             HomeIndex model = new HomeIndex();
 
             model.BiensEchanges = _bienService.Get().Select(c => c.ToListItem());
-            model.BiensEchanges = model.BiensEchanges.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+            model.BiensEchanges = model.BiensEchanges.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
 
             model.BienEchange5Last = _bienService.LastFiveBiens().Select(c => c.ToListItem());
-            model.BienEchange5Last = model.BienEchange5Last.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+            model.BienEchange5Last = model.BienEchange5Last.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
             return View(model);
         }
 
@@ -60,7 +62,7 @@ namespace HoliDayRental.Controllers
 
             model.BiensEchanges = _bienService.LastFiveBiens().Select(c => c.ToListItem());
             //model.BienEchange5Last = _BienEchangeService.Last5Biens().Select(c => c.ToListItem5());
-            model.BienEchange5Last = model.BiensEchanges.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+            model.BienEchange5Last = model.BiensEchanges.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
             return View(model);
 
         }

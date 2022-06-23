@@ -28,7 +28,7 @@ namespace HoliDayRental.Models
         [Required]
         public int idPays { get; set; }
         [DisplayName("Pays")]
-        public IEnumerable<PaysDetails> ListePays { get; set; }
+        public IEnumerable<Pays> ListePays { get; set; }
 
         [Required]
         [DisplayName("Téléphone")]

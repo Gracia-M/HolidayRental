@@ -8,15 +8,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using B = HoliDayRental.BLL.Entities;
+using M = HoliDayRental.Models;
 
 namespace HoliDayRental.Controllers
 {
     public class MembreController : Controller
     {
         private readonly IMembreRepository<Membre> _membreService;
-        private readonly IPaysRepository<Pays> _paysService;
+        private readonly IPaysRepository<B.Pays> _paysService;
 
-        public MembreController(IMembreRepository<Membre> membreService, IPaysRepository<Pays> paysService)
+        public MembreController(IMembreRepository<Membre> membreService, IPaysRepository<B.Pays> paysService)
         {
             _membreService = membreService;
             _paysService = paysService;
@@ -27,7 +29,7 @@ namespace HoliDayRental.Controllers
         // GET: MembreController
         public IActionResult Index()
         {
-            return View("Liste des membres ");
+            return View("ListeMembre");
         }
 
         public IActionResult ListeMembre()
@@ -35,7 +37,7 @@ namespace HoliDayRental.Controllers
             try
             {
                 IEnumerable<MembreList> model = _membreService.Get().Select(c => c.ToListItem());
-                model = model.Select(m => { m.ListePays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+                model = model.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
                 return View(model);
             }
             catch (Exception e)
@@ -47,7 +49,7 @@ namespace HoliDayRental.Controllers
         public IActionResult Details(int id)
         {
             MembreDetails model = _membreService.Get(id).ToDetails();
-            model.ListePays = _paysService.Get((int)model.idPays).ToDetails();
+            model.Pays = _paysService.Get((int)model.idPays).ToDetails();
             return View(model);
         }
 
@@ -113,7 +115,7 @@ namespace HoliDayRental.Controllers
                 result.Nom = collection.Nom;
                 result.Prenom = collection.Prenom;
                 result.Email = collection.Email;
-                result.Pays_Id = collection.idPays;
+                result.Pays_Id= collection.idPays;
                 result.Telephone = collection.Telephone;
                 result.Login = collection.Login;
                 if (collection.Password is not null) result.Password = collection.Password;
