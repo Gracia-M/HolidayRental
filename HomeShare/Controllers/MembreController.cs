@@ -27,15 +27,13 @@ namespace HoliDayRental.Controllers
 
 
         // GET: MembreController
-        public IActionResult Index()
-        {
-            return View("ListeMembre");
-        }
 
-        public IActionResult ListeMembre()
+        [Route("ListeMembre")]
+        public IActionResult Index()
         {
             try
             {
+
                 IEnumerable<MembreList> model = _membreService.Get().Select(c => c.ToListItem());
                 model = model.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
                 return View(model);
@@ -45,8 +43,23 @@ namespace HoliDayRental.Controllers
                 return Json(e);
             }
         }
-        // GET: MembreController/Details/5
-        public IActionResult Details(int id)
+
+
+            //public IActionResult ListeMembre()
+            //{
+            //    try
+            //    {
+            //        IEnumerable<MembreList> model = _membreService.Get().Select(c => c.ToListItem());
+            //        model = model.Select(m => { m.Pays = _paysService.Get((int)m.idPays).ToDetails(); return m; });
+            //        return View(model);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        return Json(e);
+            //    }
+            //}
+            // GET: MembreController/Details/5
+            public IActionResult Details(int id)
         {
             MembreDetails model = _membreService.Get(id).ToDetails();
             model.Pays = _paysService.Get((int)model.idPays).ToDetails();
