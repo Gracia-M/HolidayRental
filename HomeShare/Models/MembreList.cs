@@ -28,7 +28,8 @@ namespace HoliDayRental.Models
         public Pays Pays { get; set; }
 
         [DisplayName("Pays")]
-        public string NomPays => Pays.Libelle;
+        //public string NomPays => Pays.Libelle;
+        public string NomPays { get { return this.Pays.Libelle; } }
 
         [DisplayName("Téléphone")]
         public string Telephone { get; set; }

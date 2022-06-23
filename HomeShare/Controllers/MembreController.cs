@@ -28,7 +28,7 @@ namespace HoliDayRental.Controllers
 
         // GET: MembreController
 
-        [Route("ListeMembre")]
+        [Route("Membre/ListeMembre")]
         public IActionResult Index()
         {
             try

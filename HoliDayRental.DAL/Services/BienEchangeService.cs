@@ -65,7 +65,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO [BienEchange]([titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [AssuranceObligatoire], [Latitude], [Longitude], [idMembre]) OUTPUT [inserted].[idBien] VALUES (@titre, @descr_c, @desr_l, @nrPers @pays, @ville, @rue, @nr, @cp, @foto, @assur, @lat, @lon, @idMe)";
+                    command.CommandText = "INSERT INTO [BienEchange]([titre], [DescCourte], [DescLong],[NombrePerson], [Pays], [Ville], [Rue], [Numero], [CodePostal], [Photo], [AssuranceObligatoire], [Latitude], [Longitude], [idMembre]) OUTPUT [inserted].[idBien] VALUES (@titre, @descr_c, @descr_l, @nrPers, @pays, @ville, @rue, @nr, @cp, @foto, @assur, @lat, @lon, @idMe)";
                     SqlParameter p_titre = new SqlParameter { ParameterName = "titre", Value = entity.titre };
                     SqlParameter p_descr_te = new SqlParameter { ParameterName = "descr_c", Value = entity.DescCourte };
                     SqlParameter p_desr_ue = new SqlParameter { ParameterName = "descr_l", Value = entity.DescLong };
@@ -127,7 +127,7 @@ namespace HoliDayRental.DAL.Services
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE INTO [BienEchange] SET [titre]= @titre, [DescCourte]= @descr_c, [DescLong]= @desr_l, [NombrePerson]= @nrPers, [Pays]= @pays, [Ville]= @ville, [Rue]= @rue, [Numero]= @nr, [CodePostal]= @cp, [Photo]=@foto, [AssuranceObligatoire]= @assur, [isEnabled]= @enable, [DisabledDate]= @disable, [Latitude]= @lat, [Longitude]= @lon, [idMember]= @idMe, [DateCreation]= @creation) WHERE [idBien]= @id ";
+                    command.CommandText = "UPDATE INTO [BienEchange] SET [titre]= @titre, [DescCourte]= @descr_c, [DescLong]= @descr_l, [NombrePerson]= @nrPers, [Pays]= @pays, [Ville]= @ville, [Rue]= @rue, [Numero]= @nr, [CodePostal]= @cp, [Photo]=@foto, [AssuranceObligatoire]= @assur, [isEnabled]= @enable, [DisabledDate]= @disable, [Latitude]= @lat, [Longitude]= @lon, [idMember]= @idMe, [DateCreation]= @creation) WHERE [idBien]= @id ";
                     SqlParameter p_titre = new SqlParameter { ParameterName = "titre", Value = entity.titre };
                     SqlParameter p_descr_te = new SqlParameter { ParameterName = "descr_c", Value = entity.DescCourte };
                     SqlParameter p_desr_ue = new SqlParameter { ParameterName = "descr_l", Value = entity.DescLong };
